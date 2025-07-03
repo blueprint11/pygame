@@ -1,3 +1,4 @@
+import sys
 import pygame
 from constants import *
 from player import Player
@@ -18,7 +19,7 @@ def main():
     AsteroidField.containers=(updatable)
 
     aster_f=AsteroidField()
-
+    
     player=Player(x = SCREEN_WIDTH / 2,y = SCREEN_HEIGHT / 2)
     dt=0
 
@@ -29,6 +30,13 @@ def main():
             if event.type == pygame.QUIT:
                 return
         updatable.update(dt)
+
+        for asteroid in asteroids:
+            if asteroid.collision(player):
+                print("Game over!")
+                sys.exit()
+                
+
         screen.fill(black)
         for item in drawable:
             item.draw(screen)
